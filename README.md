@@ -1,2 +1,2 @@
 # digihacker
-公众号digihacker文章里用到的代码集合
+公众号DigiHacker文章里用到的代码集合
