@@ -7,19 +7,15 @@ import pandas as pd
 from PyQt5.QtCore import QTimer, pyqtSignal, QThread, Qt
 from PyQt5.QtGui import QBrush, QColor
 from PyQt5.QtWidgets import *
+import os
 
-stocks = ['sz002415', 'sz002237', 'sz002600', 'sz002230', 'sz000333', 'sz000651', 'sz000725', 'sz200725',
-          'sz601989', 'sz000951', 'sz002024', 'sz600004']
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings")
+from django.core.wsgi import get_wsgi_application
 
+application = get_wsgi_application()
+from stock.data.models import *
 
-class Stock():
-    name = ""
-    now = ""
-    close = ""
-    open = ""
-
-    def __init__(self, stockId):
-        self.stockId = stockId
+stocks = Stock.objects.all()
 
 
 class WorkThread(QThread):
@@ -32,7 +28,7 @@ class WorkThread(QThread):
         global stocks
         try:
             quotation = easyquotation.use('qq')
-            price = quotation.stocks(stocks, prefix=True)
+            price = quotation.stocks(list(map(lambda s: s.stockid, stocks)), prefix=True)
             with pd.option_context('display.max_rows', None, 'display.max_columns', None):
                 hk = pd.DataFrame(price)
                 hk = hk.T.ix[:, ['name', 'now', 'open', 'close']]
@@ -81,7 +77,7 @@ class MyApp(QMainWindow):
         self.listView.itemSelectionChanged.connect(self.choose)
         for row, s in enumerate(self.stocks):
             item = QTableWidgetItem()
-            item.setText(s)
+            item.setText(s.stockid)
             self.listView.setItem(row, 0, item)
 
             item = QTableWidgetItem()
@@ -107,6 +103,7 @@ class MyApp(QMainWindow):
         price_cell.setTextAlignment(Qt.AlignCenter)
 
         price_cell.setText(price)
+
     def choose(self):
         self.m.choosed = self.listView.selectedIndexes()[0].row()
         self.m.clear()
@@ -129,7 +126,7 @@ class PlotCanvas(FigureCanvas):
         self.choosed = 0
 
     def clear(self):
-        self.data=[]
+        self.data = []
         self.ax.clear()
 
     def plot(self, msg):

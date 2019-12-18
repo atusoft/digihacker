@@ -5,7 +5,7 @@ from fabric2 import Connection
 
 
 def train(c):
-    with c.cd('/home/ubuntu/ai/form_ai'):
+    with c.cd('/home/ubuntu/handwriting/form_ai'):
         with c.prefix('source ~/anaconda3/bin/activate pytorch_p36'):
             c.run('python form_ai.py')
 
