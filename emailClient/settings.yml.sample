@@ -1,0 +1,5 @@
+---
+user:
+  name: test@qq.com
+  password: test_pass
+imap_server: imap.qq.com

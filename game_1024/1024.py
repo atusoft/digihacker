@@ -16,22 +16,6 @@ class Square:
         self.y = y
         self.width = 200
 
-    def moveLeft(self):
-        if self.x > 1:
-            self.x -= 1
-
-    def moveRight(self):
-        if self.x < 4:
-            self.x += 1
-
-    def moveUp(self):
-        if self.y > 1:
-            self.y -= 1
-
-    def moveDown(self):
-        if self.y < 4:
-            self.y += 1
-
     @property
     def xpos(self):
         return self.x * self.width

@@ -6,4 +6,5 @@
 * stock.py PyQt5实现的股票看盘工具
 * videoPlayer 基于pyffplayer的播放器
 * game_1024 1024 基于numpy,pyqt5的1024游戏
+* emailClient 电子邮件客户端
 

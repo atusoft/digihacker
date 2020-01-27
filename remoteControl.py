@@ -5,6 +5,7 @@ from fabric2 import Connection
 
 
 def train(c):
+    c.run('tmux new -d -s train')
     with c.cd('/home/ubuntu/handwriting/form_ai'):
         with c.prefix('source ~/anaconda3/bin/activate pytorch_p36'):
             c.run('python form_ai.py')
@@ -22,7 +23,7 @@ def wakeup(c):
 
 def inputWord(c, word):
     print(f"typing {word}")
-    c.run(f'osascript -e \'tell application "system events" to keystroke "{word}"\' ', )
+    c.sudo(f'osascript -e \'tell application "system events" to keystroke "{word}"\' ')
 
 
 if __name__ == '__main__':
@@ -30,6 +31,6 @@ if __name__ == '__main__':
                     connect_kwargs={"key_filename": ['/home/lxq/tensorflow.pem']}) as c:
         train(c)
     # with Connection(host=sys.argv[1]) as c:
-    #     c.run('uptime')
-    #     wakeup(c)
-    #     inputWord(c, "passw0rd")
+     #     c.run('uptime')
+     #     wakeup(c)
+     #     inputWord(c, "passw0rd")
