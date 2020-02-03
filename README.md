@@ -7,4 +7,5 @@
 * videoPlayer 基于pyffplayer的播放器
 * game_1024 1024 基于numpy,pyqt5的1024游戏
 * emailClient 电子邮件客户端
+* charts/2019_nCov 生成2019_nCov疫情图
 
